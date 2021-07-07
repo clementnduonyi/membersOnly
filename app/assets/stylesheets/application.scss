@@ -66,6 +66,24 @@
      width: 100%;
  }
 
+ .like-content{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     
+ }
+
+ .fa-thumbs-up{
+     margin-right: 1rem;
+ }
+
+ .image{
+     border-radius: 50%;
+
+     img{
+         border-radius: 50%;
+     }
+ }
  
 
  

@@ -4,8 +4,10 @@
         <div class="box">
             <article class="media">
                 <div class="media-left">
-                    <figure class="image is-64x64">
-                    <p>img</p>
+                    <figure class="media-left">
+                        <p class="image is-64x64">
+				            <%= gravatar_image_tag(current_member.email, size: 64, alt: current_member.name) %>
+			            </p>
                     </figure>
                 </div>
                 <div class="media-content">
@@ -13,16 +15,21 @@
                         <strong><%= post.title %></strong>
                         <p><%= post.post %></p>
                         <small><%= post.post_time_stamp %></small>
-                         <div class="like-count"><i class="fa fa-thumbs-up"></i>
-                            <small><%= post.likes.length %></small>
+                        <div class="like-content">
+                            <div class="like-count">
+                                <i class="fa fa-thumbs-up"></i>
+                                <small><%= post.likes.length %></small>
+                            </div>
+                            <% if member_signed_in? %>
+                            <div class="like">
+                            <% like = post.likes.find { |like| like.member_id == current_member.id } %>
+                            <% if like %>
+                                <%= button_to "Unlike", like_path(like), method: :delete, class: "like-link" %>
+                            <% else %>
+                                <%= button_to "Like", likes_path, params: {like: { member_id: current_member,post_id: post} }, class: "like-link" %>
+                            <% end %>
+                            </div>
                         </div>
-                        <% if member_signed_in? %>
-                        <% like = post.likes.find { |like| like.member_id == current_member.id } %>
-                        <% if like %>
-                            <%= button_to "Unlike", like_path(like), method: :delete, class: "like-link" %>
-                        <% else %>
-                            <%= button_to "Like", likes_path, params: {like: { member_id: current_member,post_id: post} }, class: "like-link" %>
-                        <% end %>
                         <br />
                         <strong><%= "Author: " + post.member.name %></strong><br />
                         <small><%= "@"+post.member.username %></small>
