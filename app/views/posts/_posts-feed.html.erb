@@ -3,12 +3,15 @@
     <% @posts.includes(:likes, :member).each do | post | %>
         <div class="box">
             <article class="media">
-                <div class="media-left">
+                <div class="media-box">
+                    <% if member_signed_in? %>
                     <figure class="media-left">
                         <p class="image is-64x64">
+                                
 				            <%= gravatar_image_tag(current_member.email, size: 64, alt: current_member.name) %>
 			            </p>
                     </figure>
+                    <% end %>
                 </div>
                 <div class="media-content">
                     <div class="content">

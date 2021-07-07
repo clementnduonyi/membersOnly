@@ -51,7 +51,8 @@
 
             <% if member_signed_in? %>
             <p class="control">
-              <%= link_to "Sign out", destroy_member_session_path, method: :delete, class: "button is-warning" %>
+              <%= link_to "Sign out", destroy_member_session_path, method: :delete, 
+              class: "button is-warning" %>
             </p>
             <% end %>
             
