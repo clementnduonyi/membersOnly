@@ -24,7 +24,7 @@
                             <%= button_to "Like", likes_path, params: {like: { member_id: current_member,post_id: post} }, class: "like-link" %>
                         <% end %>
                         <br />
-                        <strong><%= "Author: " + post.member.name %></strong><br />
+                        <span><%= "Author: " + post.member.name %></span><br />
                         <small><%= "@"+post.member.username %></small>
                         <% end %>
                     
