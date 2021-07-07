@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
   before_action :authenticate_member!, except: [ :index, :show ]
+  before_action :require_writer!, only: [ :edit, :destroy, :update]
 
   # GET /posts or /posts.json
   def index
@@ -58,13 +59,20 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.require(:post).permit(:post)
+  # Only allow a list of trusted parameters through.
+  def post_params
+    params.require(:post).permit(:title, :post)
+  end
+
+  def require_writer!
+    unless current_member.try(:id) == @post.member_id
+      flash[:alert] = "You are not authirzed to carry out that action on this post!"
+      redirect_to root_url
     end
+  end
 end

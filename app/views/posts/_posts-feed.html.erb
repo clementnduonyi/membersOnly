@@ -1,6 +1,6 @@
 
-<div class="column is-centered">
-    <% @posts.each do | post | %>
+<div class="feeds-container">
+    <% @posts.includes(:likes, :member).each do | post | %>
         <div class="box">
             <article class="media">
                 <div class="media-left">
@@ -10,19 +10,31 @@
                 </div>
                 <div class="media-content">
                     <div class="content">
+                        <strong><%= post.title %></strong>
                         <p><%= post.post %></p>
-                        <% if member_signed_in?%>
-                        <strong><%= post.member.name %></strong><br />
-                        <small><%= post.member.username %></small>
+                        <small><%= post.post_time_stamp %></small>
+                         <div class="like-count"><i class="fa fa-thumbs-up"></i>
+                            <small><%= post.likes.length %></small>
+                        </div>
+                        <% if member_signed_in? %>
+                        <% like = post.likes.find { |like| like.member_id == current_member.id } %>
+                        <% if like %>
+                            <%= button_to "Unlike", like_path(like), method: :delete, class: "like-link" %>
+                        <% else %>
+                            <%= button_to "Like", likes_path, params: {like: { member_id: current_member,post_id: post} }, class: "like-link" %>
                         <% end %>
-                    </div>
-                     <% if member_signed_in? %>
+                        <br />
+                        <strong><%= "Author: " + post.member.name %></strong><br />
+                        <small><%= "@"+post.member.username %></small>
+                        <% end %>
+                    
+                    <% if member_signed_in? %>
                     <nav class="level">
                         <div class="level-left is-mobile">
                             <%= link_to post, class: "level-item" do %>
                                 <span class="icon"><i class="fa fa-link" aria-hidden="true"></i></span>
   					        <% end %>
-                        <!--
+                        
                             <%= link_to edit_post_path(post), class: "level-item" do %>
                                 <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
   					        <% end %>
@@ -30,7 +42,6 @@
                             <%= link_to post, method: :delete, data: {confirm: "Are you sure you want to delete this post?"} do %>
                                 <span class="icon"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
   					        <% end %>
-                        -->
                         </div>
                     </nav>
                     <% end %>

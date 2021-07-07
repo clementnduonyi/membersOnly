@@ -36,3 +36,36 @@
  .navbar-end .field{
      margin: auto;
  }
+
+
+
+ .fa-thumbs-up{
+     text-align: center;
+     background-color: rgb(1, 1, 29);
+     width: 2rem;
+     height: 2rem;
+     border-radius: 50%;
+     color: red;
+     padding-top: 6px;
+     font-size: 15px;
+
+     
+ }
+
+ .box{
+     width: 70%;
+     
+
+ }
+
+ .feeds-container{
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     width: 100%;
+ }
+
+ 
+
+ 
