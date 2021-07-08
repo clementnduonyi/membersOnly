@@ -71,7 +71,7 @@ class PostsController < ApplicationController
 
   def require_writer!
     unless current_member.try(:id) == @post.member_id
-      flash[:alert] = "You are not authirzed to carry out that action on this post!"
+      flash[:alert] = "You are not authorized to carry out this action!"
       redirect_to root_url
     end
   end

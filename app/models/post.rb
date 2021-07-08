@@ -13,7 +13,7 @@ class Post < ApplicationRecord
         if created_at > 1.day.ago
             post_time_stamp = time_ago_in_words(created_at).concat(" ago")
         else
-            time_stamp = created_at.strftime(' %b %-d %y')
+            post_time_stamp = created_at.strftime(' %b %-d %y')
         end
         created_at == updated_at ? post_time_stamp : (post_time_stamp + ' <i>edited</i>').html_safe
     end
